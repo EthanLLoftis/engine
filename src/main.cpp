@@ -1,12 +1,12 @@
 #include "engine.h"
-#include <vector>
-#include <string>
 
-int main() {
-    engine();
+#include <iostream>
 
-    std::vector<std::string> vec;
-    vec.push_back("test_package");
+int main(void) {
+   std::cout << "GAME ENGINE" << "\n";
 
-    engine_print_vector(vec);
+   Engine e;
+
+
+   e.loop(e.init());
 }
