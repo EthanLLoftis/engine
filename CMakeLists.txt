@@ -28,8 +28,6 @@ target_link_libraries(engine PRIVATE enginelib sfml::sfml)
 target_link_libraries(enginelib PRIVATE sfml::sfml)
 
 
-
-
 install(TARGETS engine DESTINATION "."
         RUNTIME DESTINATION bin
         ARCHIVE DESTINATION lib
