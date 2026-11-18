@@ -32,21 +32,25 @@ void Engine::loop(sf::RenderWindow window) {
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
             {
                 std::cout << "Moving left." << "\n";
+                player.move({-1.0,0});
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
             {
                 std::cout << "Moving right." << "\n";
+                player.move({1.0,0});
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
             {
                 std::cout << "Moving up." << "\n";
+                player.move({0,-1.0});
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
             {
                 std::cout << "Moving down." << "\n";
+                player.move({0,1.0});
             }
         }
 
