@@ -25,32 +25,27 @@ void Engine::loop(sf::RenderWindow window) {
         {
             if (event->is<sf::Event::Closed>())
             {
-                std::cout << "Stopping game engine." << "\n";
                 window.close();
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
             {
-                std::cout << "Moving left." << "\n";
-                player.move({-1.0,0});
+                player.move({-1.0*10,0});
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
             {
-                std::cout << "Moving right." << "\n";
-                player.move({1.0,0});
+                player.move({1.0*10,0});
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
             {
-                std::cout << "Moving up." << "\n";
-                player.move({0,-1.0});
+                player.move({0,-1.0*10});
             }
 
             if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
             {
-                std::cout << "Moving down." << "\n";
-                player.move({0,1.0});
+                player.move({0,1.0*10});
             }
         }
 
