@@ -2,10 +2,11 @@
 
 #include <iostream>
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
-sf::Window Engine::init() {
+sf::RenderWindow Engine::init() {
     std::cout << "Initializing..." << "\n";
-    sf::Window window(sf::VideoMode({800, 600}), "Game Engine", sf::Style::Default, sf::State::Windowed);
+    sf::RenderWindow window(sf::VideoMode({800, 600}), "Game Engine", sf::Style::Default, sf::State::Windowed);
 
     // window.setVerticalSyncEnabled(true);
     // run at 60 fps
@@ -14,8 +15,10 @@ sf::Window Engine::init() {
     return window;
 }
 
-void Engine::loop(sf::Window window) {
+void Engine::loop(sf::RenderWindow window) {
     std::cout << "Starting game engine." << "\n";
+
+    sf::RectangleShape player({20.0f, 60.0f});
 
     while(window.isOpen()) {
         while (const std::optional event = window.pollEvent())
@@ -46,5 +49,11 @@ void Engine::loop(sf::Window window) {
                 std::cout << "Moving down." << "\n";
             }
         }
+
+        window.clear();
+
+        window.draw(player);
+
+        window.display();
     }
 }

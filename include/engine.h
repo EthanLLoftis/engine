@@ -1,11 +1,11 @@
 #pragma once
 
-#include <string>
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 class Engine {
   public:
-    sf::Window init();
+    sf::CircleShape player;
+    sf::RenderWindow init();
     
-    void loop(sf::Window window);
+    void loop(sf::RenderWindow window);
 };
