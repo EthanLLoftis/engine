@@ -1,4 +1,5 @@
 #include "engine.h"
+#include "character.h"
 
 #include <iostream>
 #include <SFML/Window.hpp>
@@ -15,10 +16,32 @@ sf::RenderWindow Engine::init() {
     return window;
 }
 
+void Engine::handleUserInput(sf::Transformable * player) {
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
+    {
+        player->move({-1.0*10,0});
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
+    {
+        player->move({1.0*10,0});
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+    {
+        player->move({0,-1.0*10});
+    }
+
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+    {
+        player->move({0,1.0*10});
+    }
+}
+
 void Engine::loop(sf::RenderWindow window) {
     std::cout << "Starting game engine." << "\n";
 
-    sf::RectangleShape player({20.0f, 60.0f});
+    Character player(false, "Ethan", sf::RectangleShape({20.0f, 60.0f}));
 
     while(window.isOpen()) {
         while (const std::optional event = window.pollEvent())
@@ -28,30 +51,13 @@ void Engine::loop(sf::RenderWindow window) {
                 window.close();
             }
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
-            {
-                player.move({-1.0*10,0});
-            }
+            Engine::handleUserInput(&player.sprite);
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
-            {
-                player.move({1.0*10,0});
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-            {
-                player.move({0,-1.0*10});
-            }
-
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-            {
-                player.move({0,1.0*10});
-            }
         }
 
         window.clear();
 
-        window.draw(player);
+        window.draw(player.sprite);
 
         window.display();
     }

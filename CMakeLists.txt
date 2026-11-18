@@ -11,12 +11,14 @@ add_library(enginelib)
 target_sources(enginelib 
     PRIVATE
         src/engine.cpp
+        src/character.cpp
     PUBLIC
         FILE_SET HEADERS
         BASE_DIRS
             include
         FILES
             include/engine.h
+            include/character.h
 )
 
 find_package(SFML REQUIRED)

@@ -4,8 +4,9 @@
 
 class Engine {
   public:
-    sf::CircleShape player;
     sf::RenderWindow init();
     
     void loop(sf::RenderWindow window);
+
+    void handleUserInput(sf::Transformable * player);
 };
