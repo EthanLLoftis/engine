@@ -18,3 +18,8 @@ class Character  {
         std::string getName();
         void setName(std::string name);
 };
+
+struct Projectile {
+    sf::CircleShape shape;
+    sf::Vector2f vel;
+};

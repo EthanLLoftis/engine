@@ -1,4 +1,5 @@
 #pragma once
+#include "character.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -9,4 +10,6 @@ class Engine {
     void loop(sf::RenderWindow window);
 
     void handleUserInput(sf::Transformable * player);
+
+    bool projInBounds(Projectile proj, sf::RenderWindow * window);
 };
