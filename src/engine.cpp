@@ -17,7 +17,7 @@ sf::RenderWindow Engine::init() {
     return window;
 }
 
-bool Engine::projInBounds(Projectile proj, sf::RenderWindow * window){
+bool Engine::projOutBounds(Projectile proj, sf::RenderWindow * window){
     sf::FloatRect bounds = proj.shape.getGlobalBounds();
     sf::Vector2u winSize = window->getSize();
 
@@ -59,8 +59,10 @@ void Engine::loop(sf::RenderWindow window) {
 
     sf::Clock clock;
 
+    const float PROJECTILE_SPEED = 600.f; 
+
     while(window.isOpen()) {
-        sf::Time time = clock.getElapsedTime();
+        float dt = clock.restart().asSeconds();
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
@@ -70,28 +72,29 @@ void Engine::loop(sf::RenderWindow window) {
 
             Engine::handleUserInput(&player.sprite);
 
-            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space))
-            {
-                std::cout << "spawning projectile" << "\n";
-                Projectile proj;
-                proj.shape.setRadius(20.0f);
-                proj.shape.setFillColor(sf::Color::Yellow);
-                proj.shape.setPosition(player.sprite.getPosition());
-                proj.vel = {0.0f, -1.0f};
-                
-                projectiles.push_back(proj);
+            if (const auto* keyReleased = event->getIf<sf::Event::KeyReleased>()) {
+                // Check which key was released using .code or .scancode
+                if (keyReleased->code == sf::Keyboard::Key::Space) {
+                    Projectile proj;
+                    proj.shape.setRadius(20.0f);
+                    proj.shape.setFillColor(sf::Color::Yellow);
+                    proj.shape.setPosition(player.sprite.getPosition());
+                    proj.vel = {0.0f, -1.0f};
+                    
+                    projectiles.push_back(proj);
+                    std::cout << "projectile count: " << projectiles.size() << "\n";
+                }
             }
 
         }
 
         window.clear();
-
-        for (auto it = projectiles.begin(); it != projectiles.end(); ++it){
-            // if (!Engine::projInBounds(*it, &window)) {
-            //     it = projectiles.erase(it);
-            // }
-            std::cout << "Drawing projectiles" << "\n";
-            it->shape.move(it->vel * time.asSeconds());
+        for (auto it = projectiles.begin(); it != projectiles.end() && !projectiles.empty(); ++it){
+            if (Engine::projOutBounds(*it, &window)) {
+                it = projectiles.erase(it);
+                std::cout << "projectile count: " << projectiles.size() << "\n";
+            }
+            it->shape.move(it->vel * PROJECTILE_SPEED * dt);
             window.draw(it->shape);
         }
 

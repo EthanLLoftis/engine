@@ -11,5 +11,5 @@ class Engine {
 
     void handleUserInput(sf::Transformable * player);
 
-    bool projInBounds(Projectile proj, sf::RenderWindow * window);
+    bool projOutBounds(Projectile proj, sf::RenderWindow * window);
 };
